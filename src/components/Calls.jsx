@@ -9,7 +9,7 @@ import Modal from "@mui/material/Modal";
 const style = {
   position: "absolute",
   top: "50%",
-  borderRadius:'10px',
+  borderRadius: "10px",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 200,
@@ -19,8 +19,6 @@ const style = {
   p: 4,
 };
 
-
-
 export default function Calls() {
   const [showCalls, setShowCalls] = useState({
     calls: [],
@@ -29,8 +27,14 @@ export default function Calls() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [callId, setCallId] = useState('')
+  const [callId, setCallId] = useState("");
 
+  const update = () => {
+    axios.get(`https://aircall-job.herokuapp.com/activities`).then((res) => {
+      console.log(res);
+      setShowCalls({ calls: res.data });
+    });
+  };
   useEffect(() => {
     axios.get(`https://aircall-job.herokuapp.com/activities`).then((res) => {
       console.log(res);
@@ -40,20 +44,33 @@ export default function Calls() {
     console.log("test", showCalls);
   }, []);
   const archive = () => {
-    
-    axios.post(`https://aircall-job.herokuapp.com/activities/${callId}`,
-    {is_archived: true})
-    .then(setShowCalls(prevState => ({
-      calls: prevState.calls.filter(call => call.id != callId)
-    })))
-    .then(console.log(showCalls))
-    
-  }
+    axios
+      .post(`https://aircall-job.herokuapp.com/activities/${callId}`, {
+        is_archived: true,
+      })
+      .then(
+        setShowCalls((prevState) => ({
+          calls: prevState.calls.filter((call) => call.id != callId),
+        }))
+      )
+      .then(setShowCalls([...showCalls, res.data]))
+      .then(console.log(showCalls));
+  };
+
+  const reset = () => {
+    axios.get("https://aircall-job.herokuapp.com/reset").then(
+      setShowCalls((prevState) => ({
+        calls: prevState.calls.filter((call) => call.is_archived == "true"),
+      }))
+    );
+  };
   return (
     <div className="call-container">
       <div className="buttons">
         <button
           onClick={() => {
+            update();
+
             setState("Inbox");
           }}
         >
@@ -61,6 +78,7 @@ export default function Calls() {
         </button>
         <button
           onClick={() => {
+            update();
             setState("Archive");
           }}
         >
@@ -72,10 +90,12 @@ export default function Calls() {
           {showCalls.calls.map((call) => {
             if (!call.is_archived)
               return (
-                <div onClick={() => { handleOpen(); setCallId(call.id)}}
+                <div
+                  onClick={() => {
+                    handleOpen();
+                    setCallId(call.id);
+                  }}
                 >
-                 
-                  
                   <div className="date-divider">
                     - - - - {call.created_at.slice(0, 10)} - - - -
                   </div>
@@ -98,23 +118,31 @@ export default function Calls() {
               );
           })}
           <div className="modal">
-          <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Button onClick={handleClose}>Close</Button>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            id: {callId}
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-          <Button onClick={()=> {handleClose(); archive()}}>Archive Call</Button>
-        </Box>
-      </Modal>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <Button onClick={handleClose}>Close</Button>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  id: {callId}
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  Duis mollis, est non commodo luctus, nisi erat porttitor
+                  ligula.
+                </Typography>
+                <Button
+                  onClick={() => {
+                    handleClose();
+                    archive();
+                  }}
+                >
+                  Archive Call
+                </Button>
+              </Box>
+            </Modal>
           </div>
         </div>
       )}
@@ -145,7 +173,7 @@ export default function Calls() {
                 </div>
               );
           })}
-          <button>reset all archived</button>
+          <button onClick={reset}>reset all archived</button>
         </div>
       )}
     </div>
