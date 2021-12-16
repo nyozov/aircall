@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import Header from './Header.jsx';
 import Calls from './components/Calls.jsx'
+import ArchivedCalls from './components/ArchivedCalls.jsx'
 
 const App = () => {
   return (

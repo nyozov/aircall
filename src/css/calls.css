@@ -18,6 +18,14 @@
   justify-content: space-between;
 }
 
+.call-container .buttons{
+  position:fixed;
+  top:15vh;
+  right:23vw;
+  
+  
+}
+
 .call .small-text{
   font-weight: 100;
   color: rgba(0, 0, 0, 0.5);
