@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-
+import { HiPhoneMissedCall } from 'react-icons/hi'
 
 
 
@@ -29,14 +29,20 @@ return (
     
       {showCalls.calls.map(call =>
       <div>
+        
+          
+          
       <div className="date-divider">
         
         - - - - {call.created_at.slice(0, 10)} - - - -
         </div>
          
          <div className="call">
+           <div className="phone-icon">
+         <HiPhoneMissedCall size='2em'/>
+         </div>
            <div className="caller">
-           <p>{call.to}</p>
+           <p>{call.to || 'Unknown'}</p>
            
            <p className="small-text">tried to call on {call.from}</p>
            </div>

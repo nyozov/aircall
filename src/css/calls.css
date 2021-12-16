@@ -2,18 +2,20 @@
   padding:1em;
   font-size: 10px;
   display:block;
+  height: 500px;
+  overflow:scroll;
   
 }
 
 .call-container .call{
-  border:solid black;
+  border:solid rgba(0, 0, 0, 0.5);
+  border-width: 1px;
   border-radius: 10px;
   padding: 1em;
   margin:1em;
   height: 4em;
   display:flex;
   justify-content: space-between;
-  
 }
 
 .call .small-text{
@@ -21,6 +23,14 @@
   color: rgba(0, 0, 0, 0.5);
 }
 
+.call .phone-icon{
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+  border-right:solid rgba(0, 0, 0, 0.5);
+  border-width: 1px;
+  padding-right:1em;
+}
 .call-container .date-divider{
   text-align: center;
   font-weight: 100;
@@ -28,8 +38,14 @@
 }
 
 .call-container .timestamp{
-  
+  border-left:dashed rgba(0, 0, 0, 0.5);
+  border-width: 1px;
+  padding-left:1em;
   color: rgba(0, 0, 0, 0.5);
   
   
+}
+
+.call .caller{
+  text-align: center;
 }
