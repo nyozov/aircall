@@ -20,6 +20,10 @@
 }
 
 #app .container-view {
-  padding: 20px;
+  background-image: url('https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0 20px 20px 20px;
 }
 

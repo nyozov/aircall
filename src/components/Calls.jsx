@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { HiPhoneMissedCall } from "react-icons/hi";
+import { HiPhoneMissedCall, HiPhoneOutgoing } from "react-icons/hi";
+import { BsVoicemail } from "react-icons/bs"
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import { Button, IconButton } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import ArchiveIcon from '@mui/icons-material/Archive';
+import InboxIcon from '@mui/icons-material/Inbox';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import CloseIcon from '@mui/icons-material/Close';
+import CancelIcon from '@mui/icons-material/Cancel';
+
+
 
 const style = {
   position: "absolute",
@@ -13,11 +22,13 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 200,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  bgcolor: "rgba(255, 255, 255, 1)",
+
   boxShadow: 24,
   p: 4,
 };
+
+
 
 export default function Calls() {
   const [showCalls, setShowCalls] = useState({
@@ -29,12 +40,13 @@ export default function Calls() {
   const handleClose = () => setOpen(false);
   const [callId, setCallId] = useState("");
 
-  const update = () => {
+ function update() {
     axios.get(`https://aircall-job.herokuapp.com/activities`).then((res) => {
       console.log(res);
       setShowCalls({ calls: res.data });
     });
   };
+  
   useEffect(() => {
     axios.get(`https://aircall-job.herokuapp.com/activities`).then((res) => {
       console.log(res);
@@ -64,26 +76,40 @@ export default function Calls() {
       }))
     );
   };
+  const ColorTabs = () => {
+    
+  
+    const handleChange = (event, newValue) => {
+      update()
+      setState(newValue);
+    };
+  
+    return (
+      <Box sx={{ width: '100%' }}>
+        <Tabs
+          value={state}
+          onChange={handleChange}
+          textColor="primary"
+          indicatorColor="primary"
+          aria-label="secondary tabs example"
+        >
+          <Tab value="Inbox" label="Inbox" />
+          <Tab value="Archive" label="Archive" />
+        </Tabs>
+      </Box>
+    );
+  }
+  
+
+  
   return (
     <div className="call-container">
-      <div className="buttons">
-        <button
-          onClick={() => {
-            update();
-
-            setState("Inbox");
-          }}
-        >
-          Inbox
-        </button>
-        <button
-          onClick={() => {
-            update();
-            setState("Archive");
-          }}
-        >
-          Archive
-        </button>
+    <div className="buttons">
+        <div className="fixed-buttons">
+          <ColorTabs/>
+      
+        </div>
+  
       </div>
       {state === "Inbox" && (
         <div>
@@ -102,7 +128,9 @@ export default function Calls() {
 
                   <div className="call">
                     <div className="phone-icon">
-                      <HiPhoneMissedCall size="2em" />
+                      {call.call_type === 'missed' && <HiPhoneMissedCall size="2em" />}
+                      {call.call_type === 'answered' && <HiPhoneOutgoing size="2em" />}
+                      {call.call_type === 'voicemail' && <BsVoicemail size="2em" />}
                     </div>
                     <div className="caller">
                       <p>{call.to || "Unknown"}</p>
@@ -111,7 +139,7 @@ export default function Calls() {
                     </div>
                     <div className="timestamp">
                       {call.created_at.slice(11, 16)}
-                      <p>id:{call.id}</p>
+          
                     </div>
                   </div>
                 </div>
@@ -125,26 +153,52 @@ export default function Calls() {
               aria-describedby="modal-modal-description"
             >
               <Box sx={style}>
-                <Button onClick={handleClose}>Close</Button>
+                <div className="modal-close">
+                <IconButton color="error"onClick={handleClose}><CloseIcon/></IconButton>
+                </div>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                  id: {callId}
+                
                 </Typography>
+                {showCalls.calls.map((call => {
+                  if (call.id === callId){
+                return (
+                  <div>
+                  <p className="modal-title">Call Information</p>
+                <ul className="modal-list">
+                  
+                  <li><b>id:</b> {call.id}</li>
+                  <li><b>from:</b> {call.from}</li>
+                  <li><b>to: </b>{call.to}</li>
+                  <li><b>duration: </b>{call.duration} seconds</li>
+                  <li><b>direction: </b>{call.direction}</li>
+                  <li><b>via:</b> {call.via}</li>
+                  <li><b>call type: </b>{call.call_type}</li>
+                </ul>
+                </div>
+                )}})
+                )}
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  Duis mollis, est non commodo luctus, nisi erat porttitor
-                  ligula.
+                  
                 </Typography>
+                <div className="modal-archive">
                 <Button
+                variant="contained"
+                size="small"
+                color="info"
                   onClick={() => {
                     handleClose();
                     archive();
                   }}
                 >
+                 
                   Archive Call
                 </Button>
+                </div>
               </Box>
             </Modal>
           </div>
         </div>
+        
       )}
 
       {state === "Archive" && (
@@ -159,7 +213,9 @@ export default function Calls() {
 
                   <div className="call">
                     <div className="phone-icon">
-                      <HiPhoneMissedCall size="2em" />
+                    {call.call_type === 'missed' && <HiPhoneMissedCall size="2em" />}
+                      {call.call_type === 'answered' && <HiPhoneOutgoing size="2em" />}
+                      {call.call_type === 'voicemail' && <BsVoicemail size="2em" />}
                     </div>
                     <div className="caller">
                       <p>{call.to || "Unknown"}</p>
@@ -173,7 +229,7 @@ export default function Calls() {
                 </div>
               );
           })}
-          <button onClick={reset}>reset all archived</button>
+          <Button onClick={reset}>reset all archived</Button>
         </div>
       )}
     </div>

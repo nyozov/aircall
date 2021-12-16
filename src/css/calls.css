@@ -1,5 +1,4 @@
 .call-container{
-  padding:1em;
   font-size: 10px;
   display:block;
   height: 500px;
@@ -9,6 +8,7 @@
 
 .call-container .call{
   border:solid rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.8);
   border-width: 1px;
   border-radius: 10px;
   padding: 1em;
@@ -20,15 +20,28 @@
 
 .call-container .call:hover{
   cursor:pointer;
+  background: rgba(255, 255, 255, 1);
 }
 
-.call-container .buttons{
-  position:fixed;
-  top:15vh;
-  right:23vw;
+.buttons{
+  display:flex;
+  
+  justify-content: space-evenly;
+  position:relative;
+  margin-bottom:1em;
+  
+
   
   
 }
+
+.fixed-buttons{
+  position:fixed;
+  bottom:35px;
+
+}
+
+
 
 .call .small-text{
   font-weight: 100;
@@ -60,4 +73,34 @@
 
 .call .caller{
   text-align: center;
+}
+
+ul{
+  list-style:none;
+  padding: 20px;
+}
+
+li{
+  font-size:13px;
+  font-weight:200;
+  margin:0 10px 10px 0;
+}
+
+.modal-title{
+  text-align: center;
+  font-size:15px;
+  padding-bottom: 1em;
+  border-bottom: solid rgba(0, 0, 0, 0.5);
+  border-width: 1px;
+}
+
+.modal-close{
+  position:fixed;
+  top:0;
+  right:0;
+}
+
+.modal-archive{
+  display:flex;
+  justify-content: center;
 }
