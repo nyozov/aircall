@@ -50,11 +50,14 @@ return (
          <HiPhoneMissedCall size='2em'/>
          </div>
            <div className="caller">
+             
            <p>{call.to || 'Unknown'}</p>
            
            <p className="small-text">tried to call on {call.from}</p>
            </div>
-           <div className="timestamp">{call.created_at.slice(11, 16)}</div>
+           <div className="timestamp">
+             {call.created_at.slice(11, 16)}
+           <p>id:{call.id}</p></div>
            
            </div>
          </div>
