@@ -18,6 +18,10 @@
   justify-content: space-between;
 }
 
+.call-container .call:hover{
+  cursor:pointer;
+}
+
 .call-container .buttons{
   position:fixed;
   top:15vh;
