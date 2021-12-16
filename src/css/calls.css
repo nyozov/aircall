@@ -1,0 +1,11 @@
+.call-container{
+  padding:1em;
+  
+}
+
+.call-container .call{
+  border:solid black;
+  border-radius: 10px;
+  padding: 1em;
+  margin:1em;
+}
