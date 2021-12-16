@@ -39,7 +39,16 @@ export default function Calls() {
 
     console.log("test", showCalls);
   }, []);
-
+  const archive = () => {
+    
+    axios.post(`https://aircall-job.herokuapp.com/activities/${callId}`,
+    {is_archived: true})
+    .then(setShowCalls(prevState => ({
+      calls: prevState.calls.filter(call => call.id != callId)
+    })))
+    .then(console.log(showCalls))
+    
+  }
   return (
     <div className="call-container">
       <div className="buttons">
@@ -103,6 +112,7 @@ export default function Calls() {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
           </Typography>
+          <Button onClick={()=> {handleClose(); archive()}}>Archive Call</Button>
         </Box>
       </Modal>
           </div>
