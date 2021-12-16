@@ -22,7 +22,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 200,
-  bgcolor: "rgba(255, 255, 255, 1)",
+  bgcolor: "rgba(0, 0, 0, 0.8)",
 
   boxShadow: 24,
   p: 4,
@@ -93,8 +93,8 @@ export default function Calls() {
           indicatorColor="primary"
           aria-label="secondary tabs example"
         >
-          <Tab value="Inbox" label="Inbox" />
-          <Tab value="Archive" label="Archive" />
+          <Tab style={{color:'white'}}value="Inbox" label="Inbox" />
+          <Tab style={{color:'white'}}value="Archive" label="Archive" />
         </Tabs>
       </Box>
     );
@@ -117,16 +117,16 @@ export default function Calls() {
             if (!call.is_archived)
               return (
                 <div
-                  onClick={() => {
-                    handleOpen();
-                    setCallId(call.id);
-                  }}
+                 
                 >
                   <div className="date-divider">
                     - - - - {call.created_at.slice(0, 10)} - - - -
                   </div>
 
-                  <div className="call">
+                  <div className="call"  onClick={() => {
+                    handleOpen();
+                    setCallId(call.id);
+                  }}>
                     <div className="phone-icon">
                       {call.call_type === 'missed' && <HiPhoneMissedCall size="2em" />}
                       {call.call_type === 'answered' && <HiPhoneOutgoing size="2em" />}
@@ -166,13 +166,13 @@ export default function Calls() {
                   <p className="modal-title">Call Information</p>
                 <ul className="modal-list">
                   
-                  <li><b>id:</b> {call.id}</li>
-                  <li><b>from:</b> {call.from}</li>
-                  <li><b>to: </b>{call.to}</li>
-                  <li><b>duration: </b>{call.duration} seconds</li>
-                  <li><b>direction: </b>{call.direction}</li>
-                  <li><b>via:</b> {call.via}</li>
-                  <li><b>call type: </b>{call.call_type}</li>
+                <li><b>Date:</b> {call.created_at}</li>
+                  <li><b>From:</b> {call.from}</li>
+                  <li><b>To: </b>{call.to}</li>
+                  <li><b>Duration: </b>{call.duration} seconds</li>
+                  <li><b>Direction: </b>{call.direction}</li>
+                  <li><b>Via:</b> {call.via}</li>
+                  <li><b>Type: </b>{call.call_type}</li>
                 </ul>
                 </div>
                 )}})
@@ -184,7 +184,7 @@ export default function Calls() {
                 <Button
                 variant="contained"
                 size="small"
-                color="info"
+                color="primary"
                   onClick={() => {
                     handleClose();
                     archive();
@@ -229,7 +229,9 @@ export default function Calls() {
                 </div>
               );
           })}
-          <Button onClick={reset}>reset all archived</Button>
+          <div className="reset-button">
+          <Button variant="contained" onClick={reset}>reset all archived</Button>
+          </div>
         </div>
       )}
     </div>

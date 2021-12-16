@@ -8,7 +8,7 @@
 
 .call-container .call{
   border:solid rgba(0, 0, 0, 0.5);
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(25, 118, 210, 0.1);
   border-width: 1px;
   border-radius: 10px;
   padding: 1em;
@@ -16,6 +16,8 @@
   height: 4em;
   display:flex;
   justify-content: space-between;
+  box-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+  
 }
 
 .call-container .call:hover{
@@ -36,8 +38,8 @@
 }
 
 .fixed-buttons{
-  position:fixed;
-  bottom:35px;
+ position:fixed;
+ margin-top: 530px;
 
 }
 
@@ -78,6 +80,7 @@
 ul{
   list-style:none;
   padding: 20px;
+  color:white;
 }
 
 li{
@@ -87,10 +90,11 @@ li{
 }
 
 .modal-title{
+  color:white;
   text-align: center;
   font-size:15px;
   padding-bottom: 1em;
-  border-bottom: solid rgba(0, 0, 0, 0.5);
+  border-bottom: solid rgba(255, 255, 255, 0.5);
   border-width: 1px;
 }
 
@@ -103,4 +107,10 @@ li{
 .modal-archive{
   display:flex;
   justify-content: center;
+}
+
+.reset-button{
+  display: flex;
+  justify-content: center;
+
 }

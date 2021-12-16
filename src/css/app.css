@@ -14,13 +14,14 @@
   height: 666px;
   z-index: 100;
 
-  background: white;
+  background: rgba(0, 0, 0, 0.4);
+  
   border-radius: 3px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, .9);
 }
 
 #app .container-view {
-  background-image: url('https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+  background-image: url('https://image.freepik.com/free-vector/gray-abstract-wireframe-background_53876-99911.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
