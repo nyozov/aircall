@@ -28,8 +28,22 @@ return (
   <div className="call-container">
     
       {showCalls.calls.map(call =>
-         <div className="call">{call.from}</div>
+      <div>
+      <div className="date-divider">
+        
+        - - - - {call.created_at.slice(0, 10)} - - - -
+        </div>
          
+         <div className="call">
+           <div className="caller">
+           <p>{call.to}</p>
+           
+           <p className="small-text">tried to call on {call.from}</p>
+           </div>
+           <div className="timestamp">{call.created_at.slice(11, 16)}</div>
+           
+           </div>
+         </div>
          )}
     
   </div>
