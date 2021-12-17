@@ -8,8 +8,9 @@
   "license": "",
   "private": false,
   "scripts": {
-    "start": "webpack-dev-server --mode development --open",
+    "start": "webpack --mode production",
     "build": "webpack --mode production"
+    
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
