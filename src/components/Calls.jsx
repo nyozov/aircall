@@ -69,6 +69,20 @@ export default function Calls() {
       .then(console.log(showCalls));
   };
 
+  const unarchive = () => {
+    axios
+      .post(`https://aircall-job.herokuapp.com/activities/${callId}`, {
+        is_archived: false,
+      })
+      .then(
+        setShowCalls((prevState) => ({
+          calls: prevState.calls.filter((call) => call.id != callId),
+        }))
+      )
+      .then(setShowCalls([...showCalls, res.data]))
+      .then(console.log(showCalls));
+  };
+
   const reset = () => {
     axios.get("https://aircall-job.herokuapp.com/reset").then(
       setShowCalls((prevState) => ({
@@ -201,19 +215,24 @@ export default function Calls() {
         
       )}
 
-      {state === "Archive" && (
+{state === "Archive" && (
         <div>
           {showCalls.calls.map((call) => {
             if (call.is_archived)
               return (
-                <div>
+                <div
+                 
+                >
                   <div className="date-divider">
                     - - - - {call.created_at.slice(0, 10)} - - - -
                   </div>
 
-                  <div className="call">
+                  <div className="call"  onClick={() => {
+                    handleOpen();
+                    setCallId(call.id);
+                  }}>
                     <div className="phone-icon">
-                    {call.call_type === 'missed' && <HiPhoneMissedCall size="2em" />}
+                      {call.call_type === 'missed' && <HiPhoneMissedCall size="2em" />}
                       {call.call_type === 'answered' && <HiPhoneOutgoing size="2em" />}
                       {call.call_type === 'voicemail' && <BsVoicemail size="2em" />}
                     </div>
@@ -224,16 +243,72 @@ export default function Calls() {
                     </div>
                     <div className="timestamp">
                       {call.created_at.slice(11, 16)}
+          
                     </div>
                   </div>
                 </div>
               );
           })}
+          <div className="modal">
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <div className="modal-close">
+                <IconButton color="error"onClick={handleClose}><CloseIcon/></IconButton>
+                </div>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                
+                </Typography>
+                {showCalls.calls.map((call => {
+                  if (call.id === callId){
+                return (
+                  <div>
+                  <p className="modal-title">Call Information</p>
+                <ul className="modal-list">
+                  
+                <li><b>Date:</b> {call.created_at}</li>
+                  <li><b>From:</b> {call.from}</li>
+                  <li><b>To: </b>{call.to}</li>
+                  <li><b>Duration: </b>{call.duration} seconds</li>
+                  <li><b>Direction: </b>{call.direction}</li>
+                  <li><b>Via:</b> {call.via}</li>
+                  <li><b>Type: </b>{call.call_type}</li>
+                </ul>
+                </div>
+                )}})
+                )}
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  
+                </Typography>
+                <div className="modal-archive">
+                <Button
+                variant="contained"
+                size="small"
+                color="primary"
+                  onClick={() => {
+                    handleClose();
+                    unarchive();
+                  }}
+                >
+                 
+                  Move to Inbox
+                </Button>
+                </div>
+              </Box>
+            </Modal>
+          </div>
           <div className="reset-button">
           <Button variant="contained" onClick={reset}>reset all archived</Button>
           </div>
         </div>
+        
       )}
+
+       
     </div>
   );
 }
