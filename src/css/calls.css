@@ -1,116 +1,103 @@
-.call-container{
+.call-container {
   font-size: 10px;
-  display:block;
+  display: block;
   height: 500px;
-  overflow:scroll;
-  
+  overflow: scroll;
 }
 
-.call-container .call{
-  border:solid rgba(0, 0, 0, 0.5);
+/* mapped call divs */
+.call-container .call {
   background: rgba(25, 118, 210, 0.1);
-  border-width: 1px;
   border-radius: 10px;
   padding: 1em;
-  margin:1em;
+  margin: 1em;
   height: 4em;
-  display:flex;
+  display: flex;
   justify-content: space-between;
   box-shadow: 1px 1px rgba(0, 0, 0, 0.2);
-  
 }
 
-.call-container .call:hover{
-  cursor:pointer;
-  background: rgba(255, 255, 255, 1);
+.call-container .call:hover {
+  cursor: pointer;
+  background: rgba(25, 118, 210, 0.5);
 }
 
-.buttons{
-  display:flex;
-  
+.call-container .tabs {
+  display: flex;
   justify-content: space-evenly;
-  position:relative;
-  margin-bottom:1em;
-  
-
-  
-  
+  position: relative;
+  margin-bottom: 1em;
 }
 
-.fixed-buttons{
- position:fixed;
- margin-top: 530px;
-
+.call-container .fixed-tabs {
+  position: fixed;
+  margin-top: 530px;
 }
 
-
-
-.call .small-text{
+.call-container .date-divider {
+  text-align: center;
   font-weight: 100;
   color: rgba(0, 0, 0, 0.5);
 }
 
-.call .phone-icon{
-  display:flex;
+.call-container .timestamp {
+  border-left: dashed rgba(0, 0, 0, 0.5);
+  border-width: 1px;
+  padding-left: 1em;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.call .small-text {
+  font-weight: 100;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.call .phone-icon {
+  display: flex;
   justify-content: center;
   flex-direction: column;
-  border-right:solid rgba(0, 0, 0, 0.5);
+  border-right: solid rgba(0, 0, 0, 0.5);
   border-width: 1px;
-  padding-right:1em;
-}
-.call-container .date-divider{
-  text-align: center;
-  font-weight: 100;
-  color: rgba(0, 0, 0, 0.5);
+  padding-right: 1em;
 }
 
-.call-container .timestamp{
-  border-left:dashed rgba(0, 0, 0, 0.5);
-  border-width: 1px;
-  padding-left:1em;
-  color: rgba(0, 0, 0, 0.5);
-  
-  
-}
-
-.call .caller{
+.call .caller {
   text-align: center;
 }
 
-ul{
-  list-style:none;
+ul {
+  list-style: none;
   padding: 20px;
-  color:white;
+  color: white;
 }
 
-li{
-  font-size:13px;
-  font-weight:200;
-  margin:0 10px 10px 0;
+li {
+  font-size: 13px;
+  font-weight: 200;
+  margin: 0 10px 10px 0;
 }
 
-.modal-title{
-  color:white;
+.modal-title {
+  color: white;
   text-align: center;
-  font-size:15px;
+  font-size: 15px;
   padding-bottom: 1em;
   border-bottom: solid rgba(255, 255, 255, 0.5);
   border-width: 1px;
 }
 
-.modal-close{
-  position:fixed;
-  top:0;
-  right:0;
+.modal-close {
+  position: fixed;
+  top: 0;
+  right: 0;
 }
 
-.modal-archive{
-  display:flex;
-  justify-content: center;
-}
-
-.reset-button{
+.modal-archive {
   display: flex;
   justify-content: center;
+}
 
+.reset-button {
+  display: flex;
+  justify-content: center;
 }

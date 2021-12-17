@@ -15,16 +15,15 @@
   z-index: 100;
 
   background: rgba(0, 0, 0, 0.4);
-  
+
   border-radius: 3px;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, .9);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.9);
 }
 
 #app .container-view {
-  background-image: url('https://image.freepik.com/free-vector/gray-abstract-wireframe-background_53876-99911.jpg');
+  background-image: url("https://image.freepik.com/free-vector/gray-abstract-wireframe-background_53876-99911.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   padding: 0 20px 20px 20px;
 }
-
